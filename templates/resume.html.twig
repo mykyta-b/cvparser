@@ -116,6 +116,74 @@
                             <div class="position-absolute w-100 top-50 start-0 border-muted border-top"></div>
                         </div>
                     {% endif %}
+                    {% if htmlData.popular is defined and htmlData.popular.stats is not empty  %}
+                        <div class="row top-50">
+                            <div class="col col-sm-1" >
+                                Popular repos
+                            </div>
+                            <div class="col col-sm-7">
+                                {% for popular in htmlData.popular.stats %}
+
+                                    <div class="row">
+                                        <div class="col">
+                                            {% if popular.htmlUrl is not empty %}
+                                            <a href="{{ popular.htmlUrl }}"><span class="font-weight-bold">{{ popular.name }}</span></a>
+                                            {% else %}
+                                                {{ popular.name }}
+                                            {% endif %}
+                                            <br>
+                                            {{ popular.language }}
+                                        </div>
+                                        <div class="col">
+
+                                        </div>
+                                        <div class="col text-right">
+                                            {% set startYear = popular.created | date("Y") %}
+                                            {% set endYear   = popular.created | date("Y") %}
+                                            {% if startYear != endYear %}
+                                            {{ popular.created | date("Y") }} - {{ popular.pushed | date("Y") }}
+                                            {% else %}
+                                                {{ popular.created | date("Y") }}
+                                            {% endif  %}
+                                        </div>
+
+                                    </div>
+                                    {% if popular.description is defined and  popular.description is not empty %}
+                                    <div class="row">
+                                        <div class="col" >
+                                            <span style="display: inline">{{ popular.description }}</span>
+
+                                            {% if popular.homePage is defined and popular.homePage is not empty %}
+                                                <a href="{{ popular.homePage }}">{{ popular.homePage }}</a>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    <div class="row">
+                                        <div class="col" >
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col">
+                                            This repository has {{ popular.stars }} stars and {{ popular.forks }} forks.
+                                            {% if popular.htmlUrl is not empty %}
+                                                If you would like more information about this repository and
+                                                my contributed code, please visit the <a href="{{ popular.htmlUrl }}">repo</a> on GitHub.
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <hr>
+                                {% endfor %}
+                            </div>
+                            <div class="col col-sm-auto">
+                            </div>
+                        </div>
+                        <div class="py-2 my-1 text-center position-relative">
+                            <div class="position-absolute w-100 top-50  translate-middle" style="z-index: 2">
+                            </div>
+                            <div class="position-absolute w-100 top-50 start-0 border-muted border-top"></div>
+                        </div>
+                    {% endif %}
                 </article>
             </div>
         </div>

@@ -8,23 +8,18 @@ use App\DTO\ResumeDTO;
 use App\DTO\UserDTO;
 use App\Service\Gateway\UserApiGateway;
 use App\Service\Gateway\ReposApiGateway;
-use Psr\Log\LoggerInterface;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class ResumeParser
 {
     /**
-     * @var LoggerInterface
-     */
-    private LoggerInterface $logger;
-    /**
      * @var UserApiGateway
      */
     private UserApiGateway $userApi;
+
     /**
      * @var ReposApiGateway
      */
-    private ReposApiGateway $repoApi;
+    private ReposApiGateway $reposApi;
 
 
     public function __construct(
@@ -32,13 +27,13 @@ class ResumeParser
         ReposApiGateway $repoApi
     ) {
         $this->userApi = $userApi;
-        $this->repoApi = $repoApi;
+        $this->reposApi = $repoApi;
     }
 
     public function parseUserResume(string $login): ResumeDTO
     {
         $user  = $this->userApi->getByLogin($login);
-        $repos = $this->repoApi->getByLogin($login);
+        $repos = $this->reposApi->getByLogin($login);
 
         $errors = $this->getErrors($user, $repos);
 

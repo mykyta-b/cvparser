@@ -10,7 +10,13 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class UserApiGateway implements ApiGatewayInterface
+/**
+ * Class is intended to parse
+ * responses from github users api
+ * and map them to DTO
+ * @see https://docs.github.com/en/rest/reference/users
+ */
+class UserApiGateway
 {
     private const BAD_API_RESPONSE = 'Bad response of github user api';
     private const EMPTY_API_RESPONSE = 'Empty response from user api';

@@ -12,7 +12,13 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class ReposApiGateway implements ApiGatewayInterface
+/**
+ * Class is intended to parse responses
+ * from repositories github api
+ * and put them to DTO
+ * @see https://docs.github.com/en/rest/reference/repos
+ */
+class ReposApiGateway
 {
     private const REPOS_PER_PAGE = 100;
     private const LAST_PAGE_NUMBER = 20;

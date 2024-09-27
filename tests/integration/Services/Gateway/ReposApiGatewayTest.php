@@ -82,16 +82,37 @@ class ReposApiGatewayTest extends Unit
         $expected = (new RepoListDTO())
             ->setRepos([
                            (new RepoDTO())
-                               ->setLanguage('')
                                ->setSize(83)
-                               ->setCreated(new \DateTime("2009-03-11 10:24:26.000000+0000")),
+                               ->setLanguage(null)
+                               ->setCreated(new \DateTime("2009-03-11 10:24:26.000000+0000"))
+                               ->setName('roofparty')
+                               ->setWatchers(5)
+                               ->setDescription('A Last.fm radio player written in D')
+                               ->setHtmlUrl('https://github.com/mxcl/roofparty')
+                               ->setHomePage('')
+                               ->setForks(1),
+
                            (new RepoDTO())
                                ->setLanguage("Objective-C")
                                ->setSize(1039)
+                               ->setName('playdar.prefpane')
+                               ->setWatchers(26)
+                               ->setForks(1)
+                               ->setDescription('All in one Mac OS X Preference Pane for the Playdar daemon')
+                               ->setHtmlUrl('https://github.com/mxcl/playdar.prefpane')
+                               ->setHomePage('http://www.methylblue.com/playdar/')
                                ->setCreated(new \DateTime("2009-03-21 17:23:47.000000+0000")),
+
                            (new RepoDTO())
                                ->setLanguage("C")
                                ->setSize(123)
+                               ->setName('scrobsub')
+                               ->setLanguage('C')
+                               ->setWatchers(9)
+                               ->setForks(2)
+                               ->setDescription('Portable scrobbling solution in plain c')
+                               ->setHtmlUrl('https://github.com/mxcl/scrobsub')
+                               ->setHomePage('')
                                ->setCreated(new \DateTime("2009-06-09 22:43:00.000000+0000")),
 
                        ]);

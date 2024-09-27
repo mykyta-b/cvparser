@@ -14,6 +14,7 @@ class ResumeFormatter
     private const TABLE_ROW_LENGTH = 3;
     private const TABLE_CELLS_NUM = 9;
     private const DEBUG_NAME = 'ResumeFormatter';
+    private const NUMBER_OF_POPULAR_REPO = 5;
 
     /**
      * @var LoggerInterface
@@ -48,6 +49,11 @@ class ResumeFormatter
                 'stats' => $this->formatLanguages($repos->getRepos()),
                 'rowLength' => self::TABLE_ROW_LENGTH
             ];
+
+            $resumePage['popular'] = [
+                'stats' => $this->formatPopular($repos->getRepos()),
+            ];
+
         } catch (\Throwable $e) {
             $message = vsprintf("%s:%s %s", [self::DEBUG_NAME, 'Could not format resume', $e->getMessage()]);
             $this->logger->error($message);
@@ -199,5 +205,27 @@ class ResumeFormatter
 
         reset($languages);
         return $languages;
+    }
+
+    /**
+     * @param array $repos ReposDTO[]
+     * @return array
+     */
+    private function formatPopular(array $repos): array
+    {
+        usort($repos, function (RepoDTO $a, RepoDTO $b) {
+            $sumA = (int)$a->getWatchers() + (int)$a->getForks();
+            $sumB = (int)$b->getWatchers() + (int)$b->getForks();
+            return $sumB <=> $sumA;
+        });
+
+        $popularRepos = array_slice($repos, 0, self::NUMBER_OF_POPULAR_REPO);
+
+        $formattedPopular = [];
+        foreach ($popularRepos as $repo) {
+            $formattedPopular[] = $repo->toArray();
+        }
+
+        return $formattedPopular;
     }
 }
